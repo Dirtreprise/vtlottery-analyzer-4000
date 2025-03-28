@@ -21,5 +21,5 @@ df[tickets_printed_col] = df[tickets_printed_col].replace('[\$,]', '', regex=Tru
 # EV calculation:
 df['EV per Ticket'] = df[total_unclaimed_col] / df[tickets_printed_col]
 
-st.title("🎟️ Vermont Scratcher Analyzer 4000")
+st.title("🎟️ VT Scratch Ticket Analyzer 4000")
 st.dataframe(df.sort_values(by='EV per Ticket', ascending=False).reset_index(drop=True))
