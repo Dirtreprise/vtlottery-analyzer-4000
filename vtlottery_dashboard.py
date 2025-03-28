@@ -10,7 +10,16 @@ soup = BeautifulSoup(response.text, 'html.parser')
 table = soup.find("table")
 df = pd.read_html(str(table))[0]
 
-st.title("Vermont Lottery Scratch Ticket Dashboard")
-st.write("Here are the columns available:")
-st.write(df.columns.tolist())  # This will show you exactly what columns are available
-st.dataframe(df)
+# Replace these two column names exactly as shown in your dashboard:
+total_unclaimed_col = 'TOTAL UNCLAIMED'   # <-- edit if different
+tickets_printed_col = '# OF TICKETS'   # <-- edit if different
+
+# Cleaning the data to ensure calculations work correctly:
+df[total_unclaimed_col] = df[total_unclaimed_col].replace('[\$,]', '', regex=True).astype(float)
+df[tickets_printed_col] = df[tickets_printed_col].replace('[\$,]', '', regex=True).astype(float)
+
+# EV calculation:
+df['EV per Ticket'] = df[total_unclaimed_col] / df[tickets_printed_col]
+
+st.title("🎟️ Vermont Scratcher Analyzer 4000")
+st.dataframe(df.sort_values(by='EV per Ticket', ascending=False).reset_index(drop=True))
