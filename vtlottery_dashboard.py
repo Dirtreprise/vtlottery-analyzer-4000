@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 # Adding the image
-st.image("https://raw.githubusercontent.com/dirtreprise/vtlottery-analyzer-4000/main/lotto.jpeg", use_container_width=True)
+st.image("https://raw.githubusercontent.com/dirtreprise/vtlottery-analyzer-4000/main/lotto.jpg", use_container_width=True)
 
 
 st.title("🎟️ VT Scratch Ticket Analyzer 4000")
