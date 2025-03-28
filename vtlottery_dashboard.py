@@ -10,16 +10,6 @@ soup = BeautifulSoup(response.text, 'html.parser')
 table = soup.find("table")
 df = pd.read_html(str(table))[0]
 
-# Column names exactly as shown in your dashboard image:
-total_unclaimed_col = 'TOTAL UNCLAIMED'
-tickets_printed_col = '# OF TICKETS'
-
-# Cleaning data for calculation
-df[total_unclaimed_col] = df[total_unclaimed_col].replace('[\$,]', '', regex=True).astype(float)
-df[tickets_printed_col] = df[tickets_printed_col].replace('[\$,]', '', regex=True).astype(float)
-
-# EV calculation
-df['EV per Ticket'] = df[total_unclaimed_col] / df[tickets_printed_col]
-
-st.title("🎟️ Vermont Lottery Scratch Ticket Dashboard")
-st.dataframe(df.sort_values(by='EV per Ticket', ascending=False).reset_index(drop=True))
+# Clearly show column names:
+st.write("Column names:", df.columns.tolist())
+st.dataframe(df)
